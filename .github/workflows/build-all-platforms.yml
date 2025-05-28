@@ -2,8 +2,8 @@ name: Build for All Platforms
 
 on:
   push:
-    tags:
-      - 'v*' # 触发方式：打 tag 后自动构建
+    branches:
+      - master
 
 jobs:
   build-windows:
