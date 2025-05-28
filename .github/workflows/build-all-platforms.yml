@@ -29,7 +29,7 @@ jobs:
         pyinstaller --onefile --windowed --icon=icons\icon.ico main.py
 
     - name: 上传 Windows 构建产物
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: windows-app
         path: dist/
@@ -57,7 +57,7 @@ jobs:
         pyinstaller --onefile main.py
 
     - name: 上传 Linux 构建产物
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: linux-app
         path: dist/
@@ -90,7 +90,7 @@ jobs:
         pyinstaller --onefile --windowed --icon=icon.icns main.py
 
     - name: 上传 macOS 构建产物
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: macos-app
         path: dist/
