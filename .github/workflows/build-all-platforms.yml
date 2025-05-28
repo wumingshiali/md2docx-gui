@@ -1,0 +1,96 @@
+name: Build for All Platforms
+
+on:
+  push:
+    tags:
+      - 'v*' # 触发方式：打 tag 后自动构建
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    name: Build Windows EXE
+
+    steps:
+    - name: 检出代码
+      uses: actions/checkout@v4
+
+    - name: 安装 Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.x'
+
+    - name: 安装依赖
+      run: |
+        pip install pyinstaller
+        if exist requirements.txt pip install -r requirements.txt
+
+    - name: 打包 Windows 程序
+      run: |
+        pyinstaller --onefile --windowed --icon=icons\icon.ico main.py
+
+    - name: 上传 Windows 构建产物
+      uses: actions/upload-artifact@v3
+      with:
+        name: windows-app
+        path: dist/
+
+  build-linux:
+    runs-on: ubuntu-latest
+    name: Build Linux Executable
+
+    steps:
+    - name: 检出代码
+      uses: actions/checkout@v4
+
+    - name: 安装 Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.x'
+
+    - name: 安装依赖
+      run: |
+        pip install pyinstaller
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+    - name: 打包 Linux 程序
+      run: |
+        pyinstaller --onefile main.py
+
+    - name: 上传 Linux 构建产物
+      uses: actions/upload-artifact@v3
+      with:
+        name: linux-app
+        path: dist/
+
+  build-macos:
+    runs-on: macos-latest
+    name: Build macOS App
+
+    steps:
+    - name: 检出代码
+      uses: actions/checkout@v4
+
+    - name: 安装 Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.x'
+
+    - name: 安装依赖
+      run: |
+        pip install pyinstaller
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+    - name: 准备图标
+      run: |
+        mkdir -p icons
+        cp icons/icon.icns . || echo "No macOS icon"
+
+    - name: 打包 macOS 程序
+      run: |
+        pyinstaller --onefile --windowed --icon=icon.icns main.py
+
+    - name: 上传 macOS 构建产物
+      uses: actions/upload-artifact@v3
+      with:
+        name: macos-app
+        path: dist/
