@@ -3,4 +3,4 @@ python-docx>=0.8.1
 requests>=2.28.2
 html2docx>=1.6.0  # 用于HTML转换 
 maliang>=3.0.0
- 
+pyperclip>=1.7.0
