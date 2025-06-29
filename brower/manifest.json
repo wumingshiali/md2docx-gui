@@ -1,0 +1,16 @@
+{
+  "manifest_version": 3,
+  "name": "Markdown自动转换浏览器插件段",
+  "version": "1.0",
+  "description": "拦截 .md 文件下载，并转发给本地服务。",
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": [
+    "downloads",
+    "webRequest",
+    "webRequestBlocking",
+    "<all_urls>"
+  ],
+  "host_permissions": ["<all_urls>"]
+}
